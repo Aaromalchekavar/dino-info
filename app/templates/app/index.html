@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>index</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <script src=
                     "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
@@ -15,23 +15,21 @@
     <link href=
                   "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
           rel="stylesheet" type="text/css"/>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<nav>
+<nav class = "nav">
     <div class="logo">
         <h2><a href="/">LOGO</a></h2>
     </div>
     <ul class="nav-links">
-        <li><a href="{% url 'herbivorous' %}">Herbivores</a></li>
-        <li><a href="{% url 'carnivorous' %}">Carnivores</a></li>
-        <li><a href="{% url 'omnivorous' %}">Omnivorous</a></li>
-
+        <li></li>
     </ul>
 </nav>
 <div class="main">
     <div class="form-content">
-        <form action="{% url 'index' %}" method="GET">
-            <input type="text" id="names" name="name">
+        <form class="form"action="" method="GET">
+            <input placeholder="Type in Dino Name Here" type="text" id="names" name="name">
             <input type="submit">
         </form>
 
@@ -41,11 +39,7 @@
         <h2>{{name}}</h2>
         <img src="{{img}}" alt="Image of dinosaur">
         {% for key, value in info %}
-        {% if key == 'Diet:' %}
-            <p>{{key}} - <a href="{{value}}">{{value}}</a></p>
-        {% else %}
-            <p>{{key}} - {{value}}</p>
-        {% endif %}
+        <p>{{key}} - {{value}}</p>
         {% endfor %}
     </div>
     {% endif %}
@@ -63,16 +57,12 @@
         <h2>{{name}}</h2>
         <img src="{{img}}" alt="Image of dinosaur">
         {% for key, value in rinfo %}
-        {% if key == 'Diet:' %}
-            <p>{{key}} - <a href="{{value}}">{{value}}</a></p>
-        {% else %}
-            <p>{{key}} - {{value}}</p>
-        {% endif %}
-
+        <p>{{key}} - {{value}}</p>
         {% endfor %}
         {% endif %}
     </div>
 </div>
+
 <script>
      $( function() {
     var availableTags = [
