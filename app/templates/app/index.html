@@ -23,7 +23,9 @@
         <h2><a href="/">LOGO</a></h2>
     </div>
     <ul class="nav-links">
-        <li></li>
+        <li><a href="{% url 'herbivorous' %}">Herbivores</a></li>
+        <li><a href="{% url 'carnivorous' %}">Carnivores</a></li>
+        <li><a href="{% url 'omnivorous' %}">Omnivorous</a></li>
     </ul>
 </nav>
 <div class="main">
@@ -39,7 +41,11 @@
         <h2>{{name}}</h2>
         <img src="{{img}}" alt="Image of dinosaur">
         {% for key, value in info %}
-        <p>{{key}} - {{value}}</p>
+        {% if key == 'Diet:' %}
+            <p>{{key}} - <a href="{{value}}">{{value}}</a></p>
+        {% else %}
+            <p>{{key}} - {{value}}</p>
+        {% endif %}
         {% endfor %}
     </div>
     {% endif %}
@@ -52,12 +58,17 @@
     <form action="{% url 'rand' %}">
         <input type="submit" value="get random info">
     </form>
-    <div class="random-results">
+   <div class="random-results">
         {% if rinfo %}
         <h2>{{name}}</h2>
         <img src="{{img}}" alt="Image of dinosaur">
         {% for key, value in rinfo %}
-        <p>{{key}} - {{value}}</p>
+        {% if key == 'Diet:' %}
+            <p>{{key}} - <a href="{{value}}">{{value}}</a></p>
+        {% else %}
+            <p>{{key}} - {{value}}</p>
+        {% endif %}
+
         {% endfor %}
         {% endif %}
     </div>
