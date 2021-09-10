@@ -2,6 +2,9 @@ from django.shortcuts import render
 from bs4 import BeautifulSoup
 from sys import getsizeof
 from .dinonames import dinos
+from app.herbivores_dictionary import herbs
+from app.carnivores_dictionary import carns
+from app.omnivores_dictionary import omnis
 import requests
 import random
 
@@ -134,3 +137,13 @@ def randomdino(request):
         print(e)
     info = zip(list1, list2)
     return render(request, 'app/index.html', {'rinfo': info, 'dinos': dinos, 'img': img_link, 'name': name})
+
+def herbivores(request):
+    num = len(herbs)
+    return render(request, 'app/category.html', {'dinos': herbs, 'title': 'Herbivores', 'num': num})
+def carnivores(request):
+    num = len(carns)
+    return render(request, 'app/category.html', {'dinos': carns, 'title': 'Carnivores', 'num': num})
+def omnivorous(request):
+    num = len(omnis)
+    return render(request, 'app/category.html', {'dinos': omnis, 'title': 'Omnivores', 'num': num})

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+  <h2>{{title}}</h2>
+  <p>There are a total of {{num}} dinosaurs under this diet type</p>
+    {% for key, value in dinos.items %}
+    <p><a href="/?name={{key}}">{{key}}</a></p>
+
+    <p><img src="{{value}}" alt="Dinosaur image"></p>
+  {% endfor %}
+</body>
+</html>

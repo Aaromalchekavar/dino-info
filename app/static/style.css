@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Pacifico&display=swap');
+
+*{
+    text-decoration: none;
+    margin: 0 auto;
+    font-family: 'Arvo', serif;
+list-style-type: none;}
+.nav{
+    background: #2D4A58;
+    text-align: center;
+    padding: 1em 0;
+}
+
+.nav div{
+    background: inherit;
+}
+.nav h2 a{
+    
+    color: aquamarine;
+    background: inherit; 
+}
+
+.main, .random{
+    background: #A6F0AF;
+    padding-top: 3em;
+}
+.main{
+    padding-top: 17em;
+}
+.random{
+    height: fit-content;
+    text-align: center;
+}
+body{
+    background: #A6F0AF;
+    height: 100%;
+}
+.form-content{
+    text-align: center;
+    background: inherit;
+}
+.form{
+    background: inherit;
+    display: block;
+    padding: 1em;
+}
+input{
+    display: block;
+    margin: 1em auto;
+    height: 50px;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+input[type="text"]{
+    width: 40em;
+    outline: 1px solid transparent;
+    font-size: large;
+    font-weight: bold;
+    padding: 0 10px;
+    text-align: center;
+}
+input[type="text"]:focus{
+    border: 2px solid #2D4A58;
+}
+input[type="submit"]{
+    background:  #576d68;
+    padding: 10px;
+    color: azure;
+    font-weight: bold;
+    -moz-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+
+    -webkit-transition: transform 1.05s ease-in-out;
+    -moz-transition:transform 1.05s ease-in-out;
+    -ms-transition:transform 1.05s ease-in-out;
+}
+input[type="submit"]:hover{
+    background: #2D4A58;
+}
+
+
+img{
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.random{
+    color: black;
+    width: 60%;
+}
+
+.random-results   > p{
+    text-align: start;
+    padding:0 20%;
+    font-weight: bold;
+    line-height: 2em;
+}
+
+@media (max-width:755px) {
+    input[type="text"]{
+        width: 35em;
+    
+    } 
+    .random{
+        width: 100%;
+    }
+    .random-results   > p{
+        padding:0 2%;
+    }
+}
+
+@media (max-width:620px) {
+    input[type="text"]{
+        width: 20em;
+    
+    } 
+
+}
