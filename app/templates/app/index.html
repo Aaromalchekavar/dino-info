@@ -1,0 +1,79 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src=
+                    "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+    </script>
+
+    <script src=
+                    "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    </script>
+
+    <link href=
+                  "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<nav>
+    <div class="logo">
+        <h2><a href="/">LOGO</a></h2>
+    </div>
+    <ul class="nav-links">
+        <li></li>
+    </ul>
+</nav>
+<div class="main">
+    <div class="form-content">
+        <form action="" method="GET">
+            <input type="text" id="names" name="name">
+            <input type="submit">
+        </form>
+
+    </div>
+    {% if info %}
+    <div class="results">
+        <h2>{{name}}</h2>
+        <img src="{{img}}" alt="Image of dinosaur">
+        {% for key, value in info %}
+        <p>{{key}} - {{value}}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+
+<div class="random">
+    <br>
+    <h2>Random Dino info</h2>
+    <form action="{% url 'rand' %}">
+        <input type="submit" value="get random info">
+    </form>
+    <div class="random-results">
+        {% if rinfo %}
+        <h2>{{name}}</h2>
+        <img src="{{img}}" alt="Image of dinosaur">
+        {% for key, value in rinfo %}
+        <p>{{key}} - {{value}}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+<script>
+     $( function() {
+    var availableTags = [
+        {% for name in dinos %}
+            "{{name}}",
+        {% endfor %}
+    ];
+    $( "#names" ).autocomplete({
+      source: availableTags
+    });
+  } );
+
+
+</script>
+</body>
+</html>
