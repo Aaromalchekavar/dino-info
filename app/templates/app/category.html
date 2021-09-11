@@ -1,16 +1,29 @@
-<!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
     <title>{{title}}</title>
+    
 </head>
 <body>
-  <h2>{{title}}</h2>
-  <p>There are a total of {{num}} dinosaurs under this diet type</p>
+  <nav class = "nav">
+    <div class="logo">
+        <h2><a href="/">PREHISTORIC DINO WORLD</a></h2>
+    </div>
+    <ul class="nav-links">
+        <li><a href="{% url 'herbivorous' %}">Herbivores</a></li>
+        <li><a href="{% url 'carnivorous' %}">Carnivores</a></li>
+        <li><a href="{% url 'omnivorous' %}">Omnivorous</a></li>
+    </ul>
+</nav>
+  <h2 style="text-align: center;margin-top: 2em;margin-bottom: 2em;">{{title}}</h2>
+  <p style="margin-left: 1em;">There are a total of {{num}} dinosaurs under this diet type</p>
     {% for key, value in dinos.items %}
-    <p><a href="/?name={{key}}">{{key}}</a></p>
+    <p style="text-align: center;margin-top: 2em;" ><a class="category-link-a" href="/?name={{key}}">{{key}}</a></p>
 
-    <p><img src="{{value}}" alt="Dinosaur image"></p>
+    <p style="text-align: center;"><img src="{{value}}" alt="Dinosaur image"></p>
   {% endfor %}
 </body>
 </html>
