@@ -2,11 +2,12 @@ from django.shortcuts import render
 from bs4 import BeautifulSoup
 from sys import getsizeof
 from .dinonames import dinos
-from app.herbivores_dictionary import herbs
-from app.carnivores_dictionary import carns
-from app.omnivores_dictionary import omnis
+from app.herbivores_dictionary import herbs, herbivores_names_list
+from app.carnivores_dictionary import carns, carnivores_names_list
+from app.omnivores_dictionary import omnis, omnivore_names_list
 import requests
 import random
+from django.contrib import messages
 
 # Create your views here.
 
@@ -18,60 +19,66 @@ def index(request):
     if request.GET.get('name'):
         name = request.GET.get('name')
         print(name)
-        list1 = []
-        list2 = []
-        page_link = "https://www.nhm.ac.uk/discover/dino-directory/" + name.lower() + ".html"
+        if name in dinos:
 
-        page = requests.get(page_link)
-        soup = BeautifulSoup(page.content, "html.parser")
-        img_link = soup.find("img", class_="dinosaur--image")["src"]
+            list1 = []
+            list2 = []
 
-        d_name_description = soup.find_all("dl", class_="dinosaur--name-description")
-        d_des = soup.find_all("dl", class_="dinosaur--description dinosaur--list")
-        d_info = soup.find_all("dl", class_="dinosaur--info dinosaur--list")
-        d_content = soup.find(class_="dinosaur--content-container small-12 medium-12 large-12 columns")
-        d_namedby = soup.find("dt", string="Named by:").find_next("dd").string
-        list1.append('Named by:')
-        list2.append(d_namedby)
-        d_species = d_namedby.find_next("dd").string
-        list1.append('Species type:')
-        list2.append(d_species)
+            page_link = "https://www.nhm.ac.uk/discover/dino-directory/" + name.lower() + ".html"
 
-        for d in d_name_description:
+            page = requests.get(page_link)
+            soup = BeautifulSoup(page.content, "html.parser")
+            img_link = soup.find("img", class_="dinosaur--image")["src"]
 
-            dts = d.find_all("dt")
-            dds = d.find_all("dd")
-            for i in dts:
-                list1.append(i.text)
-            for i in dds:
-                list2.append(i.text.strip())
+            d_name_description = soup.find_all("dl", class_="dinosaur--name-description")
+            d_des = soup.find_all("dl", class_="dinosaur--description dinosaur--list")
+            d_info = soup.find_all("dl", class_="dinosaur--info dinosaur--list")
+            d_content = soup.find(class_="dinosaur--content-container small-12 medium-12 large-12 columns")
+            d_namedby = soup.find("dt", string="Named by:").find_next("dd").string
+            list1.append('Named by:')
+            list2.append(d_namedby)
+            d_species = d_namedby.find_next("dd").string
+            list1.append('Species type:')
+            list2.append(d_species)
 
-        for d in d_des:
+            for d in d_name_description:
 
-            dts = d.find_all("dt")
-            dds = d.find_all("dd")
-            for i in dts:
-                list1.append(i.text)
-            for i in dds:
-                list2.append(i.text.strip())
+                dts = d.find_all("dt")
+                dds = d.find_all("dd")
+                for i in dts:
+                    list1.append(i.text)
+                for i in dds:
+                    list2.append(i.text.strip())
 
-        for d in d_info:
+            for d in d_des:
 
-            dts = d.find_all("dt")
-            dds = d.find_all("dd")
-            for i in dts:
-                list1.append(i.text)
-            for i in dds:
-                list2.append(i.text.strip())
-        try:
-            if (d_content.text):
-                list1.append("content")
-                list2.append(d_content.text)
-        except Exception as e:
-            print("entered Exception")
-            print(e)
-        info = zip(list1, list2)
-        print(getsizeof(info))
+                dts = d.find_all("dt")
+                dds = d.find_all("dd")
+                for i in dts:
+                    list1.append(i.text)
+                for i in dds:
+                    list2.append(i.text.strip())
+
+            for d in d_info:
+
+                dts = d.find_all("dt")
+                dds = d.find_all("dd")
+                for i in dts:
+                    list1.append(i.text)
+                for i in dds:
+                    list2.append(i.text.strip())
+            try:
+                if (d_content.text):
+                    list1.append("content")
+                    list2.append(d_content.text)
+            except Exception as e:
+                print("entered Exception")
+                print(e)
+            info = zip(list1, list2)
+            print(getsizeof(info))
+        else:
+            print("no such dino")
+            messages.info(request, 'No such dino found')
     return render(request, 'app/index.html', {'info': info, 'dinos': dinos, 'img': img_link, 'name': name})
 
 def randomdino(request):
