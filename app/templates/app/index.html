@@ -1,0 +1,108 @@
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<<<<<<< HEAD
+    <title>PREHISTORIC DINO WORLD</title>
+=======
+
+    <title>index</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap" rel="stylesheet">
+>>>>>>> e597c51a2520fc8d926535c74fb819f5babbc100
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src=
+                    "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+    </script>
+
+    <script src=
+                    "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    </script>
+
+    <link href=
+                  "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel="stylesheet" type="text/css"/>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<nav class = "nav">
+    <div class="logo">
+        <h2><a href="/">PREHISTORIC DINO WORLD</a></h2>
+    </div>
+    <ul class="nav-links">
+        <li><a href="{% url 'herbivorous' %}">Herbivores</a></li>
+        <li><a href="{% url 'carnivorous' %}">Carnivores</a></li>
+        <li><a href="{% url 'omnivorous' %}">Omnivorous</a></li>
+    </ul>
+</nav>
+<div class="main">
+    <div class="form-content">
+        <form class="form"action="{% url 'index'  %}" method="GET">
+            <input placeholder="Type in Dino Name Here" type="text" id="names" name="name">
+            <input type="submit">
+        </form>
+
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <h2>{{message}}</h2>
+        {% endfor %}
+    {% endif %}
+    {% if info %}
+    <div class="results">
+        <h2>{{name}}</h2>
+        <div class="dino-img">
+            <img src="{{img}}" alt="Image of dinosaur">
+        </div>
+        {% for key, value in info %}
+        {% if key == 'Diet:' %}
+            <p>{{key}} - <a href="{{value}}">{{value}}</a></p>
+        {% else %}
+            <p>{{key}} - {{value}}</p>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+
+<div class="random">
+    <br>
+    <h2>Random Dino info</h2>
+    <form action="{% url 'rand' %}">
+        <input type="submit" value="get random info">
+    </form>
+   <div class="random-results">
+        {% if rinfo %}
+        <h2>{{name}}</h2>
+        <img src="{{img}}" alt="Image of dinosaur">
+        {% for key, value in rinfo %}
+        {% if key == 'Diet:' %}
+            <p>{{key}} - <a href="{{value}}">{{value}}</a></p>
+        {% else %}
+            <p>{{key}} - {{value}}</p>
+        {% endif %}
+
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<script>
+     $( function() {
+    var availableTags = [
+        {% for name in dinos %}
+            "{{name}}",
+        {% endfor %}
+    ];
+    $( "#names" ).autocomplete({
+      source: availableTags
+    });
+  } );
+
+
+</script>
+</body>
+</html>
